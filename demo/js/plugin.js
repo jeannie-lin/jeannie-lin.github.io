@@ -47,7 +47,7 @@
 					that.find(options.btn).removeClass('current').eq(ndx).addClass('current');
 					that.find(options.views).animate({
 						left:-w*idx
-					},300,function(){
+					},200,function(){
 						$(this).css({
 							left:-w*ndx
 						}).find(options.view+':lt('+options.delta+')').css({
@@ -66,7 +66,7 @@
 				var vs = that.find(options.views);
 				var v = that.find(options.view);
 				var w = v.width(),m = v.length;
-				var i=Math.floor(Math.abs(vs.position().left)/w);
+				var i=Math.floor(Math.abs(vs.position().left)/w/options.delta)*options.delta;
 
 				if(options.infinite && i == 0) {
 					that.find(options.views).css({
@@ -84,7 +84,7 @@
 				var vs = that.find(options.views);
 				var v = that.find(options.view);
 				var w = v.width(),m = v.length;
-				var i=Math.floor(Math.abs(vs.position().left)/w);
+				var i=Math.floor(Math.abs(vs.position().left)/w/options.delta)*options.delta;
 
 				if(options.infinite && i == m-options.delta) {
 					that.find(options.view+':lt('+options.delta+')').css({
@@ -102,6 +102,7 @@
 			}
 
 			var start = function(){
+				clearTimeout(timer);
 				if(options.move){
 					timer = setTimeout(move,options.during);
 				} else if (options.scroll) {
